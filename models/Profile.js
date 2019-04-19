@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const User = require("./User");
 mongoose.set("debug", true);
 mongoose.Promise = Promise;
 const Schema = mongoose.Schema;
@@ -116,4 +117,13 @@ const ProfileSchema = new Schema({
     default: Date.now()
   }
 });
-module.exports = profile = mongoose.model("profile", ProfileSchema);
+
+ProfileSchema.pre("remove", async function(next) {
+  try {
+    let user = await User.findByIdAndDelete(this.user);
+    return next();
+  } catch (error) {
+    return next(error);
+  }
+});
+module.exports = Profile = mongoose.model("profile", ProfileSchema);
