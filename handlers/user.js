@@ -21,10 +21,14 @@ exports.logIn = async function(req, res, next) {
     const { email, password } = req.body;
     let user = await db.User.findOne({ email });
     //if user not found
+
     if (!user) {
+      const email = {
+        email: "User not found"
+      };
       return next({
         status: 404,
-        message: "User not found"
+        message: email
       });
     }
     //check if password correct

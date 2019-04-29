@@ -9,7 +9,7 @@ const validateEducationInput = require("../validation/education");
  ***************************/
 exports.getUserProfile = async function(req, res, next) {
   try {
-    let profile = await db.User.findOne({ user: req.user.id }).populate(
+    let profile = await db.Profile.findOne({ user: req.user.id }).populate(
       "user",
       ["name", "avatar"]
     );
@@ -136,7 +136,7 @@ exports.createUserProfile = async function(req, res, next) {
 
 exports.deleteProfile = async function(req, res, next) {
   try {
-    let profile = await db.profile.findOne({ user: req.user.id });
+    let profile = await db.Profile.findOne({ user: req.user.id });
     await profile.remove();
     return res.json({ success: true });
   } catch (error) {
