@@ -1,6 +1,7 @@
 import axios from "axios";
 import {
   GET_PROFILE,
+  GET_PROFILES,
   PROFILE_LOADING,
   CLEAR_CURRENT_PROFILE,
   GET_ERRORS,
@@ -22,6 +23,24 @@ export const getCurrentProfile = () => dispatch => {
       dispatch({
         type: GET_PROFILE,
         payload: {}
+      });
+    });
+};
+//Get profile by handle
+export const getProfileByHandle = handle => dispatch => {
+  dispatch(setProfileLoading());
+  axios
+    .get(`/api/profile/handle/${handle}`)
+    .then(res =>
+      dispatch({
+        type: GET_PROFILE,
+        payload: res.data
+      })
+    )
+    .catch(error => {
+      dispatch({
+        type: GET_PROFILE,
+        payload: null
       });
     });
 };
@@ -103,6 +122,24 @@ export const deleteEducation = id => {
         })
       );
   };
+};
+//Get all profiles
+export const getProfiles = () => dispatch => {
+  dispatch(setProfileLoading());
+  axios
+    .get("api/profile/all")
+    .then(res =>
+      dispatch({
+        type: GET_PROFILES,
+        payload: res.data
+      })
+    )
+    .catch(error => {
+      dispatch({
+        type: GET_PROFILES,
+        payload: {}
+      });
+    });
 };
 //delete account anf profile
 export const deleteAccount = () => dispatch => {

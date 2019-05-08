@@ -50,7 +50,7 @@ exports.deletePost = async function(req, res, next) {
   try {
     let post = await db.Post.findById(req.params.id);
     if (post) {
-      if (post.user.toString() === req.user.id) {
+      if (post.user.toString() !== req.user.id) {
         return next({
           status: 401,
           message: "User is not authorized"

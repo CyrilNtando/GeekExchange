@@ -46,7 +46,7 @@ exports.logIn = async function(req, res, next) {
       //if password did not match
       return next({
         status: 404,
-        message: "Password is incorrect"
+        message: { password: "Password is incorrect" }
       });
     }
   } catch (error) {

@@ -168,6 +168,7 @@ exports.addExprience = async function(req, res, next) {
       current: req.body.current,
       description: req.body.description
     };
+    console.log(req.body.description);
     //add to exp array
     profile.experience.unshift(newExp);
     //Save Profile
